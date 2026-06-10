@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-cloud-sun"></i>
+                    <h1>Weather Dashboard</h1>
+                </div>
+                <div class="header-controls">
+                    <button class="btn-theme" id="themeToggle" title="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="btn-settings" id="settingsBtn" title="Settings">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search for a city..."
+                    autocomplete="off"
+                >
+                <button class="btn-search" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="btn-location" id="locationBtn" title="Use my location">
+                    <i class="fas fa-map-marker-alt"></i>
+                </button>
+            </div>
+            <div class="search-suggestions" id="suggestions"></div>
+        </section>
+
+        <!-- Settings Modal -->
+        <div class="modal" id="settingsModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button class="btn-close" id="closeSettings">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label for="apiKeyInput">API Key:</label>
+                        <input type="password" id="apiKeyInput" class="input-field" placeholder="Enter your OpenWeatherMap API key">
+                        <small>Get free key at <a href="https://openweathermap.org/api" target="_blank">openweathermap.org</a></small>
+                    </div>
+                    <div class="setting-group">
+                        <label for="unitSelect">Temperature Unit:</label>
+                        <select id="unitSelect" class="select-field">
+                            <option value="metric">Celsius (°C)</option>
+                            <option value="imperial">Fahrenheit (°F)</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="languageSelect">Language:</label>
+                        <select id="languageSelect" class="select-field">
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                            <option value="zh_cn">Chinese</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="saveSettings">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Current Weather -->
+            <section class="weather-section current-weather" id="currentWeather">
+                <div class="weather-loading">
+                    <div class="spinner"></div>
+                    <p>Loading weather data...</p>
+                </div>
+            </section>
+
+            <!-- Weather Details Grid -->
+            <section class="weather-details" id="weatherDetails" style="display: none;">
+                <div class="detail-card">
+                    <div class="detail-header">
+                        <i class="fas fa-wind"></i>
+                        <span>Wind</span>
+                    </div>
+                    <div class="detail-value" id="windSpeed">--</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-header">
+                        <i class="fas fa-droplet"></i>
+                        <span>Humidity</span>
+                    </div>
+                    <div class="detail-value" id="humidity">--</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-header">
+                        <i class="fas fa-gauge"></i>
+                        <span>Pressure</span>
+                    </div>
+                    <div class="detail-value" id="pressure">--</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-header">
+                        <i class="fas fa-eye"></i>
+                        <span>Visibility</span>
+                    </div>
+                    <div class="detail-value" id="visibility">--</div>
+                </div>
+            </section>
+
+            <!-- Hourly Forecast -->
+            <section class="forecast-section" id="hourlySection" style="display: none;">
+                <h2>Hourly Forecast</h2>
+                <div class="hourly-forecast" id="hourlyForecast"></div>
+            </section>
+
+            <!-- 5-Day Forecast -->
+            <section class="forecast-section" id="dailySection" style="display: none;">
+                <h2>5-Day Forecast</h2>
+                <div class="daily-forecast" id="dailyForecast"></div>
+            </section>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <p id="errorText"></p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Last updated: <span id="lastUpdate">--</span></p>
+            <p>Data provided by <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a></p>
+        </footer>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
